@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Star, Heart, Share, MoreHorizontal } from "lucide-react";
 import { Listing } from "@/lib/mock-data";
@@ -10,7 +11,7 @@ interface ListingCardProps {
 }
 
 export function ListingCard({ listing }: ListingCardProps) {
-  const [isFavorite, setIsFavorite] = (window as any).useState?.(false) || [false, () => {}];
+  const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <div className="group relative block space-y-3 selection:bg-transparent">
