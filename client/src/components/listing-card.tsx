@@ -12,7 +12,7 @@ export function ListingCard({ listing }: ListingCardProps) {
   return (
     <Link href={`/listing/${listing.id}`}>
       <a className="group block space-y-3 cursor-pointer">
-        <div className="relative overflow-hidden rounded-xl bg-secondary/50">
+        <div className="relative overflow-hidden rounded-2xl bg-secondary/50">
           <AspectRatio ratio={1} className="w-full">
             <img
               src={listing.images[0]}
@@ -23,16 +23,16 @@ export function ListingCard({ listing }: ListingCardProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-3 right-3 rounded-full bg-black/10 text-white hover:bg-black/20 hover:text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute top-4 right-4 rounded-full bg-black/5 text-white hover:bg-black/15 transition-all p-0"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
             }}
           >
-            <Heart className="h-5 w-5" />
+            <Heart className="h-6 w-6 stroke-[2px] drop-shadow-sm" />
           </Button>
           {listing.host.isSuperhost && (
-            <div className="absolute top-3 left-3 rounded-md bg-white/90 backdrop-blur px-2 py-1 text-xs font-semibold shadow-sm">
+            <div className="absolute top-4 left-4 rounded-lg bg-white/95 backdrop-blur px-3 py-1 text-xs font-bold shadow-sm text-black uppercase tracking-wider">
               Superhost
             </div>
           )}
@@ -40,23 +40,23 @@ export function ListingCard({ listing }: ListingCardProps) {
         
         <div className="space-y-1">
           <div className="flex justify-between items-start">
-            <h3 className="font-semibold text-base leading-tight truncate pr-2">
-              {listing.location.city}, {listing.location.country}
+            <h3 className="font-bold text-base leading-tight truncate pr-2">
+              {listing.location.city}, {listing.location.state}
             </h3>
-            <div className="flex items-center gap-1 text-sm">
+            <div className="flex items-center gap-1 text-sm font-medium">
               <Star className="h-3.5 w-3.5 fill-current" />
-              <span>{listing.rating}</span>
+              <span>{listing.rating.toFixed(2)}</span>
             </div>
           </div>
-          <p className="text-muted-foreground text-sm line-clamp-1">
+          <p className="text-muted-foreground text-[15px] line-clamp-1">
             {listing.title}
           </p>
-          <p className="text-sm text-muted-foreground">
-            {listing.type} • {listing.beds} beds
+          <p className="text-[15px] text-muted-foreground">
+            {listing.type} • {listing.beds} {listing.beds > 1 ? 'camas' : 'cama'}
           </p>
           <div className="flex items-baseline gap-1 mt-1">
-            <span className="font-semibold text-base">${listing.price}</span>
-            <span className="text-muted-foreground text-sm">night</span>
+            <span className="font-bold text-base">R${listing.price}</span>
+            <span className="text-muted-foreground text-sm">noite</span>
           </div>
         </div>
       </a>
