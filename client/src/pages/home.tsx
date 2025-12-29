@@ -52,18 +52,18 @@ export default function Home() {
   return (
     <Layout>
       {/* Categories Bar - Floating Apple Design */}
-      <section className="sticky top-14 md:top-16 z-40 bg-white/90 backdrop-blur-xl border-b border-black/[0.03] h-14 md:h-20 flex items-center transition-all duration-300">
-        <div className="container mx-auto px-6 sm:px-12 relative flex items-center gap-6 h-full">
+      <section className="sticky top-14 md:top-16 z-40 bg-white/80 backdrop-blur-xl border-b border-black/[0.04] h-14 md:h-16 flex items-center transition-all duration-500">
+        <div className="container mx-auto px-4 md:px-12 relative flex items-center gap-4 h-full">
           <div className="relative flex-1 flex items-center overflow-hidden h-full">
             {showLeftArrow && (
-              <div className="absolute left-0 z-10 h-full flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-12">
+              <div className="absolute left-0 z-10 h-full flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-10">
                 <Button 
                   variant="outline" 
                   size="icon" 
-                  className="rounded-full size-9 shadow-lg border-black/[0.05] hover:scale-110 active:scale-95 transition-all bg-white"
+                  className="rounded-full size-8 shadow-sm border-black/[0.06] hover:scale-110 active:scale-95 transition-all bg-white"
                   onClick={() => scroll('left')}
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  <ChevronLeft className="h-4 w-4" />
                 </Button>
               </div>
             )}
@@ -71,26 +71,29 @@ export default function Home() {
             <div 
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex gap-10 overflow-x-auto no-scrollbar scroll-smooth h-full items-center px-4"
+              className="flex gap-9 overflow-x-auto no-scrollbar scroll-smooth h-full items-center px-1"
             >
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.label}
                   onClick={() => setActiveCategory(cat.label)}
-                  className={`flex flex-col items-center gap-2.5 group cursor-pointer transition-all min-w-[64px] h-full justify-center relative ${
+                  className={`flex flex-col items-center gap-2 group cursor-pointer transition-all min-w-[56px] h-full justify-center relative ${
                     activeCategory === cat.label 
-                      ? "text-primary opacity-100" 
-                      : "text-muted-foreground/60 opacity-100 hover:text-foreground hover:scale-105"
+                      ? "text-foreground" 
+                      : "text-muted-foreground/40 hover:text-foreground"
                   }`}
                 >
-                  <span className="text-[26px] transition-transform duration-300 group-active:scale-90">{cat.icon}</span>
-                  <span className="text-[13px] font-bold whitespace-nowrap tracking-tight">
+                  <span className={`text-[22px] transition-all duration-300 ${activeCategory === cat.label ? 'scale-110' : 'grayscale-[0.5] opacity-60 group-hover:grayscale-0 group-hover:opacity-100'}`}>
+                    {cat.icon}
+                  </span>
+                  <span className={`text-[11px] font-black whitespace-nowrap tracking-tight transition-colors ${activeCategory === cat.label ? 'text-foreground' : 'text-muted-foreground/60'}`}>
                     {cat.label}
                   </span>
                   {activeCategory === cat.label && (
                     <motion.div 
                       layoutId="activeCategory"
-                      className="absolute bottom-0 left-0 right-0 h-[3px] bg-primary rounded-full shadow-[0_-4px_12px_rgba(255,56,92,0.3)]"
+                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-foreground rounded-full"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
                 </button>
@@ -98,22 +101,22 @@ export default function Home() {
             </div>
 
             {showRightArrow && (
-              <div className="absolute right-0 z-10 h-full flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-12">
+              <div className="absolute right-0 z-10 h-full flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-10">
                 <Button 
                   variant="outline" 
                   size="icon" 
-                  className="rounded-full size-9 shadow-lg border-black/[0.05] hover:scale-110 active:scale-95 transition-all bg-white"
+                  className="rounded-full size-8 shadow-sm border-black/[0.06] hover:scale-110 active:scale-95 transition-all bg-white"
                   onClick={() => scroll('right')}
                 >
-                  <ChevronRight className="h-5 w-5" />
+                  <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>
             )}
           </div>
           
-          <Button variant="outline" className="hidden md:flex gap-3 rounded-2xl h-12 px-6 border-black/[0.08] font-bold hover:bg-black/5 transition-all shadow-sm active:scale-95">
-            <SlidersHorizontal className="h-4 w-4" />
-            <span className="text-[13px] font-bold">Filtros</span>
+          <Button variant="outline" className="hidden md:flex gap-2.5 rounded-xl h-10 px-4 border-black/[0.06] font-bold hover:bg-black/[0.02] transition-all shadow-sm active:scale-95">
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            <span className="text-[12px] font-black">Filtros</span>
           </Button>
         </div>
       </section>

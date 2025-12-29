@@ -26,37 +26,41 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-      isScrolled ? "h-14 bg-background/80 backdrop-blur-xl border-b border-black/[0.05]" : "h-16 bg-background border-b-0"
+    <header className={`sticky top-0 z-50 w-full transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+      isScrolled ? "h-14 bg-white/80 backdrop-blur-xl border-b border-black/[0.04] shadow-sm" : "h-16 bg-white border-b border-black/[0.02]"
     }`}>
-      <div className="container mx-auto flex h-full items-center justify-between px-6 sm:px-12">
+      <div className="container mx-auto flex h-full items-center justify-between px-4 md:px-12">
         {/* Logo */}
         <Link href="/">
-          <a className="flex items-center gap-2 group">
-            <div className="size-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20 group-hover:scale-105 transition-all duration-300">
+          <a className="flex items-center gap-2.5 group">
+            <motion.div 
+              whileHover={{ scale: 1.05, rotate: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="size-9 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-[0_4px_12px_rgba(255,56,92,0.25)] transition-all duration-300"
+            >
               <HomeIcon className="h-5 w-5" />
-            </div>
-            <div className="flex flex-col -space-y-1 ml-1">
-              <span className="text-xl font-extrabold tracking-tighter text-foreground hidden sm:block">
+            </motion.div>
+            <div className="flex flex-col -space-y-1.5 ml-0.5">
+              <span className="text-[17px] font-black tracking-tighter text-foreground hidden sm:block">
                 Lar por
               </span>
-              <span className="text-xl font-extrabold tracking-tighter text-primary hidden sm:block">
+              <span className="text-[17px] font-black tracking-tighter text-primary hidden sm:block">
                 Temporada
               </span>
             </div>
           </a>
         </Link>
 
-        {/* Search Bar - Clean Apple/Airbnb Hybrid */}
+        {/* Search Bar - True Apple Refinement */}
         <motion.div 
           layout
-          className="hidden md:flex items-center h-14 px-3 border border-black/[0.08] rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 cursor-pointer bg-white group"
+          className="hidden md:flex items-center h-12 px-1 border border-black/[0.06] rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.02),0_4px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] transition-all duration-500 cursor-pointer bg-white group"
         >
-          <div className="px-6 text-sm font-bold border-r border-black/[0.05] hover:text-primary transition-colors">Qualquer lugar</div>
-          <div className="px-6 text-sm font-bold border-r border-black/[0.05] hover:text-primary transition-colors">Semana</div>
-          <div className="px-6 text-sm text-muted-foreground/60 font-medium group-hover:text-muted-foreground transition-colors">Hóspedes?</div>
-          <div className="bg-primary size-10 rounded-full flex items-center justify-center text-white ml-2 shadow-lg shadow-primary/20 group-hover:scale-105 transition-all">
-            <Search className="h-4 w-4 stroke-[3px]" />
+          <div className="px-5 text-[13px] font-bold border-r border-black/[0.04] hover:text-primary transition-colors h-full flex items-center">Qualquer lugar</div>
+          <div className="px-5 text-[13px] font-bold border-r border-black/[0.04] hover:text-primary transition-colors h-full flex items-center">Semana</div>
+          <div className="px-5 text-[13px] text-muted-foreground/50 font-semibold group-hover:text-muted-foreground transition-colors h-full flex items-center">Hóspedes?</div>
+          <div className="bg-primary size-9 rounded-full flex items-center justify-center text-white ml-1 shadow-[0_4px_10px_rgba(255,56,92,0.3)] group-hover:scale-105 transition-all">
+            <Search className="h-3.5 w-3.5 stroke-[3.5px]" />
           </div>
         </motion.div>
 
