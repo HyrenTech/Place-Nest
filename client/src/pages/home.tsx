@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <Layout>
       {/* Categories Bar - Floating Apple Design */}
-      <section className="sticky top-20 md:top-24 z-40 bg-white/90 backdrop-blur-xl border-b border-black/[0.03] h-24 flex items-center transition-all duration-500">
+      <section className="sticky top-14 md:top-16 z-40 bg-white/90 backdrop-blur-xl border-b border-black/[0.03] h-14 md:h-20 flex items-center transition-all duration-300">
         <div className="container mx-auto px-6 sm:px-12 relative flex items-center gap-6 h-full">
           <div className="relative flex-1 flex items-center overflow-hidden h-full">
             {showLeftArrow && (
