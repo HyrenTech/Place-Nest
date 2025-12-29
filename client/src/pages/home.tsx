@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <Layout>
       {/* Categories Bar - Refined with Arrows and Shadow */}
-      <section className="sticky top-16 md:top-20 z-40 bg-background/95 backdrop-blur-md border-b border-border/40 py-2 sm:py-0 h-20 flex items-center shadow-sm">
+      <section className="sticky top-16 md:top-16 z-40 bg-background/95 backdrop-blur-md border-b border-border/40 py-2 sm:py-0 h-16 flex items-center shadow-sm">
         <div className="container mx-auto px-4 sm:px-12 relative flex items-center gap-4 h-full">
           <div className="relative flex-1 flex items-center overflow-hidden h-full">
             {showLeftArrow && (
