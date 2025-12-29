@@ -26,36 +26,37 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
-      isScrolled ? "h-16 border-border/40 bg-background/95 backdrop-blur-md shadow-sm" : "h-16 border-transparent bg-background"
+    <header className={`sticky top-0 z-50 w-full transition-all duration-500 ${
+      isScrolled ? "h-20 bg-background/80 backdrop-blur-xl border-b border-black/[0.05]" : "h-24 bg-background border-b-0"
     }`}>
-      <div className="container mx-auto flex h-full items-center justify-between px-4 sm:px-12">
+      <div className="container mx-auto flex h-full items-center justify-between px-6 sm:px-12">
         {/* Logo */}
         <Link href="/">
           <a className="flex items-center gap-2 group">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="size-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-sm group-hover:shadow-md transition-all"
-            >
+            <div className="size-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20 group-hover:scale-105 transition-all duration-300">
               <HomeIcon className="h-5 w-5" />
-            </motion.div>
-            <span className="text-xl font-bold tracking-tight text-primary hidden sm:block">
-              Lar por Temporada
-            </span>
+            </div>
+            <div className="flex flex-col -space-y-1 ml-1">
+              <span className="text-xl font-extrabold tracking-tighter text-foreground hidden sm:block">
+                Lar por
+              </span>
+              <span className="text-xl font-extrabold tracking-tighter text-primary hidden sm:block">
+                Temporada
+              </span>
+            </div>
           </a>
         </Link>
 
-        {/* Search Bar - Enhanced */}
+        {/* Search Bar - Clean Apple/Airbnb Hybrid */}
         <motion.div 
           layout
-          className="hidden md:flex items-center h-12 px-2 border rounded-full shadow-sm hover:shadow-md transition-all cursor-pointer bg-background group"
+          className="hidden md:flex items-center h-14 px-3 border border-black/[0.08] rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 cursor-pointer bg-white group"
         >
-          <button className="px-5 text-sm font-bold border-r hover:bg-muted/30 h-full rounded-l-full transition-colors">Qualquer lugar</button>
-          <button className="px-5 text-sm font-bold border-r hover:bg-muted/30 h-full transition-colors">Qualquer semana</button>
-          <button className="px-5 text-sm text-muted-foreground hover:bg-muted/30 h-full rounded-r-full transition-colors">Hóspedes?</button>
-          <div className="bg-primary p-2.5 rounded-full text-primary-foreground ml-2 group-hover:scale-105 transition-transform shadow-sm">
-            <Search className="h-4 w-4" />
+          <div className="px-6 text-sm font-bold border-r border-black/[0.05] hover:text-primary transition-colors">Qualquer lugar</div>
+          <div className="px-6 text-sm font-bold border-r border-black/[0.05] hover:text-primary transition-colors">Semana</div>
+          <div className="px-6 text-sm text-muted-foreground/60 font-medium group-hover:text-muted-foreground transition-colors">Hóspedes?</div>
+          <div className="bg-primary size-10 rounded-full flex items-center justify-center text-white ml-2 shadow-lg shadow-primary/20 group-hover:scale-105 transition-all">
+            <Search className="h-4 w-4 stroke-[3px]" />
           </div>
         </motion.div>
 

@@ -51,19 +51,19 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* Categories Bar - Refined with Arrows and Shadow */}
-      <section className="sticky top-16 md:top-16 z-40 bg-background/95 backdrop-blur-md border-b border-border/40 py-2 sm:py-0 h-16 flex items-center shadow-sm">
-        <div className="container mx-auto px-4 sm:px-12 relative flex items-center gap-4 h-full">
+      {/* Categories Bar - Floating Apple Design */}
+      <section className="sticky top-20 md:top-24 z-40 bg-white/90 backdrop-blur-xl border-b border-black/[0.03] h-24 flex items-center transition-all duration-500">
+        <div className="container mx-auto px-6 sm:px-12 relative flex items-center gap-6 h-full">
           <div className="relative flex-1 flex items-center overflow-hidden h-full">
             {showLeftArrow && (
-              <div className="absolute left-0 z-10 h-full flex items-center bg-gradient-to-r from-background via-background to-transparent pr-8">
+              <div className="absolute left-0 z-10 h-full flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-12">
                 <Button 
                   variant="outline" 
                   size="icon" 
-                  className="rounded-full size-8 shadow-md border-border/60 hover:scale-110 transition-transform bg-background"
+                  className="rounded-full size-9 shadow-lg border-black/[0.05] hover:scale-110 active:scale-95 transition-all bg-white"
                   onClick={() => scroll('left')}
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft className="h-5 w-5" />
                 </Button>
               </div>
             )}
@@ -71,26 +71,26 @@ export default function Home() {
             <div 
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex gap-8 overflow-x-auto no-scrollbar scroll-smooth h-full items-center px-2"
+              className="flex gap-10 overflow-x-auto no-scrollbar scroll-smooth h-full items-center px-4"
             >
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.label}
                   onClick={() => setActiveCategory(cat.label)}
-                  className={`flex flex-col items-center gap-2 group cursor-pointer transition-all min-w-[56px] h-full justify-center relative ${
+                  className={`flex flex-col items-center gap-2.5 group cursor-pointer transition-all min-w-[64px] h-full justify-center relative ${
                     activeCategory === cat.label 
-                      ? "text-foreground opacity-100" 
-                      : "text-muted-foreground opacity-60 hover:opacity-100"
+                      ? "text-primary opacity-100" 
+                      : "text-muted-foreground/60 opacity-100 hover:text-foreground hover:scale-105"
                   }`}
                 >
-                  <span className="text-2xl group-hover:scale-110 transition-transform duration-300 group-active:scale-95">{cat.icon}</span>
-                  <span className="text-xs font-bold whitespace-nowrap tracking-tight">
+                  <span className="text-[26px] transition-transform duration-300 group-active:scale-90">{cat.icon}</span>
+                  <span className="text-[13px] font-bold whitespace-nowrap tracking-tight">
                     {cat.label}
                   </span>
                   {activeCategory === cat.label && (
                     <motion.div 
                       layoutId="activeCategory"
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-[3px] bg-primary rounded-full shadow-[0_-4px_12px_rgba(255,56,92,0.3)]"
                     />
                   )}
                 </button>
@@ -98,22 +98,22 @@ export default function Home() {
             </div>
 
             {showRightArrow && (
-              <div className="absolute right-0 z-10 h-full flex items-center bg-gradient-to-l from-background via-background to-transparent pl-8">
+              <div className="absolute right-0 z-10 h-full flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-12">
                 <Button 
                   variant="outline" 
                   size="icon" 
-                  className="rounded-full size-8 shadow-md border-border/60 hover:scale-110 transition-transform bg-background"
+                  className="rounded-full size-9 shadow-lg border-black/[0.05] hover:scale-110 active:scale-95 transition-all bg-white"
                   onClick={() => scroll('right')}
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="h-5 w-5" />
                 </Button>
               </div>
             )}
           </div>
           
-          <Button variant="outline" className="hidden md:flex gap-3 rounded-xl h-12 px-5 border-border/60 font-bold hover:bg-muted/30 transition-colors shadow-sm active:scale-95">
+          <Button variant="outline" className="hidden md:flex gap-3 rounded-2xl h-12 px-6 border-black/[0.08] font-bold hover:bg-black/5 transition-all shadow-sm active:scale-95">
             <SlidersHorizontal className="h-4 w-4" />
-            <span className="text-xs uppercase tracking-wider">Filtros</span>
+            <span className="text-[13px] font-bold">Filtros</span>
           </Button>
         </div>
       </section>

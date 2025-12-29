@@ -14,63 +14,64 @@ export function ListingCard({ listing }: ListingCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <div className="group relative block space-y-3 selection:bg-transparent">
+    <div className="group relative block space-y-4 selection:bg-transparent">
       <Link href={`/listing/${listing.id}`}>
-        <a className="block space-y-3 cursor-pointer">
-          <div className="relative overflow-hidden rounded-[1.25rem] bg-secondary/30 aspect-square shadow-sm group-hover:shadow-md transition-all">
+        <a className="block space-y-4 cursor-pointer">
+          <div className="relative overflow-hidden rounded-[1.75rem] bg-black/[0.03] aspect-square shadow-sm hover:shadow-xl transition-all duration-500 ease-out">
             <motion.img
               src={listing.images[0]}
               alt={listing.title}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+              whileHover={{ scale: 1.08 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="h-full w-full object-cover"
             />
             
             {listing.host.isSuperhost && (
-              <div className="absolute top-4 left-4 rounded-lg bg-white/95 backdrop-blur-[2px] px-3 py-1.5 text-[11px] font-black shadow-sm text-black uppercase tracking-widest z-10 border border-black/5">
+              <div className="absolute top-5 left-5 rounded-xl bg-white/90 backdrop-blur-md px-4 py-2 text-[12px] font-extrabold shadow-lg text-black uppercase tracking-wider z-10 border border-black/5">
                 Superhost
               </div>
             )}
             
-            {/* Image Overlay for better contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            {/* Soft Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 opacity-60 pointer-events-none" />
           </div>
         </a>
       </Link>
 
-      {/* Heart Button - Separate from Link to allow direct interaction */}
+      {/* Heart Button - Apple Style */}
       <button
-        className="absolute top-4 right-4 z-20 p-2 text-white hover:scale-110 active:scale-90 transition-all drop-shadow-md"
+        className="absolute top-5 right-5 z-20 p-2 text-white hover:scale-110 active:scale-90 transition-all drop-shadow-2xl"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          setIsFavorite(!isFavorite);
         }}
       >
-        <Heart className="h-7 w-7 stroke-white stroke-[2.5px] fill-black/30 hover:fill-primary hover:stroke-primary transition-colors" />
+        <Heart className={`h-8 w-8 stroke-white stroke-[2.5px] transition-all duration-300 ${isFavorite ? "fill-primary stroke-primary" : "fill-black/20 hover:fill-black/40"}`} />
       </button>
       
       <Link href={`/listing/${listing.id}`}>
-        <a className="block space-y-1">
+        <a className="block space-y-1.5 px-1">
           <div className="flex justify-between items-start gap-2">
-            <h3 className="font-bold text-[15px] leading-tight truncate text-foreground/90">
+            <h3 className="font-extrabold text-[16px] leading-tight text-foreground tracking-tight">
               {listing.location.city}, {listing.location.state}
             </h3>
-            <div className="flex items-center gap-1 text-[14px] font-medium shrink-0">
-              <Star className="h-3 w-3 fill-current" />
+            <div className="flex items-center gap-1.5 text-[15px] font-bold shrink-0">
+              <Star className="h-3.5 w-3.5 fill-current text-foreground" />
               <span>{listing.rating.toFixed(2)}</span>
             </div>
           </div>
           
-          <p className="text-muted-foreground text-[14px] line-clamp-1 font-medium">
-            A {listing.location.city.length > 10 ? 'alguns' : 'muitos'} km de distância
+          <p className="text-muted-foreground/80 text-[15px] font-bold tracking-tight">
+            Distância não informada
           </p>
-          <p className="text-[14px] text-muted-foreground font-medium">
-            Disponível: 5 – 10 de mai.
+          <p className="text-[15px] text-muted-foreground/60 font-semibold tracking-tight">
+            12 – 17 de mai.
           </p>
           
-          <div className="flex items-baseline gap-1.5 pt-1">
-            <span className="font-bold text-[15px]">R${listing.price}</span>
-            <span className="text-muted-foreground text-[15px] font-medium">noite</span>
+          <div className="flex items-baseline gap-1.5 pt-1.5">
+            <span className="font-extrabold text-[17px] tracking-tight">R${listing.price}</span>
+            <span className="text-muted-foreground text-[16px] font-bold">noite</span>
           </div>
         </a>
       </Link>
