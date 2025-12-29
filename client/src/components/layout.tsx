@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import { Link, useLocation } from "wouter";
 import { Search, Globe, Menu, MapPin, Heart, MessageSquare, Calendar, Home as HomeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
