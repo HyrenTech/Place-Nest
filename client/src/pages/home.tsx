@@ -51,27 +51,6 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* Search Section Mobile - Enhanced UX */}
-      <section className="pt-4 pb-2 px-4 md:hidden">
-        <motion.div 
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="bg-background rounded-full shadow-[0_3px_12px_rgba(0,0,0,0.1)] border border-border/40 p-3 flex items-center gap-4 cursor-pointer hover:shadow-md active:scale-[0.98] transition-all"
-          onClick={() => setLocation("/search")}
-        >
-          <div className="bg-primary p-2.5 rounded-full text-primary-foreground ml-1 shadow-sm">
-            <Search className="h-5 w-5" />
-          </div>
-          <div className="flex-1">
-            <div className="font-bold text-sm">Onde você quer ir?</div>
-            <div className="text-xs text-muted-foreground/80 font-medium">Qualquer lugar • Semana • Hóspedes</div>
-          </div>
-          <div className="mr-2 p-2 border border-border/60 rounded-full bg-muted/5">
-            <SlidersHorizontal className="h-4 w-4 text-foreground" />
-          </div>
-        </motion.div>
-      </section>
-
       {/* Categories Bar - Refined with Arrows and Shadow */}
       <section className="sticky top-16 md:top-20 z-40 bg-background/95 backdrop-blur-md border-b border-border/40 py-2 sm:py-0 h-20 flex items-center shadow-sm">
         <div className="container mx-auto px-4 sm:px-12 relative flex items-center gap-4 h-full">
