@@ -4,7 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: "Manrope", "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Manrope", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -46,49 +47,87 @@
 
 /* APPLE-INSPIRED PREMIUM THEME */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 9%;
+  --background: 36 33% 97%;
+  --foreground: 220 15% 12%;
 
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 9%;
+  --card-foreground: 220 15% 12%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 9%;
+  --popover-foreground: 220 15% 12%;
 
-  --primary: 0 72% 51%; /* Apple System Red */
+  --primary: 7 78% 56%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 0%;
+  --secondary: 210 20% 97%;
+  --secondary-foreground: 220 15% 12%;
 
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 44%;
+  --muted: 210 16% 92%;
+  --muted-foreground: 215 12% 40%;
 
-  --accent: 0 0% 96%;
-  --accent-foreground: 0 0% 0%;
+  --accent: 28 60% 95%;
+  --accent-foreground: 220 15% 12%;
 
-  --border: 0 0% 94%;
-  --input: 0 0% 94%;
-  --ring: 0 0% 0%;
+  --destructive: 0 80% 55%;
+  --destructive-foreground: 0 0% 100%;
 
-  --radius: 1.25rem;
+  --border: 210 16% 88%;
+  --input: 210 16% 90%;
+  --ring: 215 15% 35%;
+
+  --radius: 1.35rem;
+
+  --surface-1: hsl(0 0% 100% / 0.82);
+  --surface-2: hsl(0 0% 100% / 0.66);
+  --surface-3: hsl(210 25% 97% / 0.9);
+  --border-subtle: hsl(210 18% 86% / 0.7);
+  --border-strong: hsl(210 18% 78% / 0.7);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 6px 18px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.16);
+  --shadow-lg: 0 28px 70px rgba(15, 23, 42, 0.22);
+
+  --button-outline: hsl(210 16% 82%);
+  --badge-outline: hsl(210 16% 84%);
+  --primary-border: hsl(7 72% 48%);
+  --secondary-border: hsl(210 16% 84%);
+  --destructive-border: hsl(0 70% 45%);
 }
 
 @layer base {
   * {
-    @apply border-border antialiased selection:bg-primary/10;
+    @apply border-border antialiased selection:bg-primary/15;
   }
   body {
-    @apply font-sans bg-background text-foreground tracking-[-0.015em] leading-relaxed;
+    @apply font-sans text-foreground tracking-[-0.012em] leading-relaxed;
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(900px 520px at 12% -12%, hsl(28 70% 92% / 0.7), transparent 60%),
+      radial-gradient(700px 420px at 92% 8%, hsl(210 55% 92% / 0.6), transparent 60%),
+      linear-gradient(180deg, hsl(36 33% 98%) 0%, hsl(210 20% 96%) 100%);
+    background-attachment: fixed;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.04)];
+    background: var(--surface-1);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(20px);
   }
   .apple-shadow {
-    @apply shadow-[0_2px_8px_rgba(0,0,0,0.04),0_10px_30px_rgba(0,0,0,0.08)];
+    box-shadow: var(--shadow-md);
+  }
+  .hover-elevate {
+    transition: transform 220ms ease, box-shadow 260ms ease;
+  }
+  .hover-elevate:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+  .active-elevate-2:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -97,15 +136,13 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-}
-
-/* Utility to hide scrollbars but allow scrolling */
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .text-balance {
+    text-wrap: balance;
   }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .font-display {
+    font-family: var(--font-display);
   }
 }

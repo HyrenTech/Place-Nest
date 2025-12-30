@@ -3,36 +3,31 @@ import Layout from "@/components/layout";
 import { ListingCard } from "@/components/listing-card";
 import { LISTINGS } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
-import { Search, SlidersHorizontal, ChevronLeft, ChevronRight, Map } from "lucide-react";
-import { useLocation } from "wouter";
+import { SlidersHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CATEGORIES = [
-  { label: "Tudo", icon: "🏠" },
-  { label: "Vilas", icon: "🏰" },
-  { label: "Apartamento", icon: "🏢" },
-  { label: "Cabana", icon: "🌲" },
-  { label: "Frente ao Mar", icon: "🏖️" },
-  { label: "Design", icon: "🎨" },
-  { label: "UAU!", icon: "🛸" },
-  { label: "Piscinas", icon: "🏊" },
-  { label: "Fazendas", icon: "🚜" },
-  { label: "No campo", icon: "🐑" },
-  { label: "Tropical", icon: "🌴" },
-  { label: "Cidades", icon: "🏙️" },
-  { label: "Ártico", icon: "❄️" },
+  { label: "Tudo", value: "Tudo" },
+  { label: "Vilas", value: "Vila" },
+  { label: "Apartamentos", value: "Apartamento" },
+  { label: "Lofts", value: "Loft" },
+  { label: "Cabanas", value: "Cabana" },
+  { label: "Frente ao Mar", value: "Frente ao Mar" },
+  { label: "Design", value: "Design" },
+  { label: "UAU!", value: "UAU!" },
 ];
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Tudo");
-  const [, setLocation] = useLocation();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const heroListing = LISTINGS[0];
 
-  const filteredListings = activeCategory === "Tudo" 
-    ? LISTINGS 
-    : LISTINGS.filter(l => l.type === activeCategory || (activeCategory === "Frente ao Mar" && l.type === "Frente ao Mar"));
+  const filteredListings =
+    activeCategory === "Tudo"
+      ? LISTINGS
+      : LISTINGS.filter((listing) => listing.type === activeCategory);
 
   const handleScroll = () => {
     if (scrollRef.current) {
@@ -42,57 +37,93 @@ export default function Home() {
     }
   };
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -300 : 300;
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      const scrollAmount = direction === "left" ? -300 : 300;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("resize", handleScroll);
+    return () => window.removeEventListener("resize", handleScroll);
+  }, []);
+
   return (
     <Layout>
-      {/* Categories Bar - Floating Apple Design */}
-      <section className="sticky top-14 md:top-16 z-40 bg-white/80 backdrop-blur-xl border-b border-black/[0.04] h-14 md:h-16 flex items-center transition-all duration-500">
-        <div className="container mx-auto px-4 md:px-12 relative flex items-center gap-4 h-full">
-          <div className="relative flex-1 flex items-center overflow-hidden h-full">
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="container mx-auto grid items-center gap-10 px-4 pb-12 pt-10 sm:px-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-7">
+            <div className="space-y-4">
+              <h1 className="font-display text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl lg:text-[3.4rem]">
+                Estadias que parecem feitas sob medida para a sua próxima fuga.
+              </h1>
+              <p className="max-w-xl text-lg text-muted-foreground">
+                Descubra vilas, lofts e cabanas com design impecável, serviço impecável e
+                atmosfera digna de editorial.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button className="h-12 rounded-full px-6 text-sm font-semibold">
+                Explorar destinos
+              </Button>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/70 bg-white/80 shadow-[var(--shadow-md)]">
+              <img
+                src={heroListing.images[0]}
+                alt={heroListing.title}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Bar */}
+      <section className="sticky top-14 z-40 border-y border-black/[0.04] bg-white/70 backdrop-blur-xl md:top-16">
+        <div className="container mx-auto flex h-16 items-center gap-4 px-4 sm:px-12">
+          <div className="relative flex-1 overflow-hidden">
             {showLeftArrow && (
-              <div className="absolute left-0 z-10 h-full flex items-center bg-gradient-to-r from-white via-white/80 to-transparent pr-10">
-                <Button 
-                  variant="outline" 
-                  size="icon" 
-                  className="rounded-full size-8 shadow-sm border-black/[0.06] hover:scale-110 active:scale-95 transition-all bg-white"
-                  onClick={() => scroll('left')}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
+              <div className="absolute left-0 z-10 h-full w-14 bg-gradient-to-r from-white via-white/90 to-transparent">
+                <div className="flex h-full items-center">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="ml-1 h-9 w-9 rounded-full border border-border/70 bg-white/80 shadow-sm"
+                    onClick={() => scroll("left")}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             )}
-            
-            <div 
+
+            <div
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex gap-9 overflow-x-auto no-scrollbar scroll-smooth h-full items-center px-1"
+              className="flex items-center gap-8 overflow-x-auto px-1 py-2 no-scrollbar"
             >
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.label}
-                  onClick={() => setActiveCategory(cat.label)}
-                  className={`flex flex-col items-center gap-2 group cursor-pointer transition-all min-w-[56px] h-full justify-center relative ${
-                    activeCategory === cat.label 
-                      ? "text-foreground" 
-                      : "text-muted-foreground/40 hover:text-foreground"
+                  onClick={() => setActiveCategory(cat.value)}
+                  className={`group relative flex min-w-[72px] flex-col items-center gap-1 px-2 py-2 text-xs font-semibold transition-all ${
+                    activeCategory === cat.value
+                      ? "text-foreground"
+                      : "text-muted-foreground/70 hover:text-foreground"
                   }`}
                 >
-                  <span className={`text-[22px] transition-all duration-300 ${activeCategory === cat.label ? 'scale-110' : 'grayscale-[0.5] opacity-60 group-hover:grayscale-0 group-hover:opacity-100'}`}>
-                    {cat.icon}
-                  </span>
-                  <span className={`text-[11px] font-black whitespace-nowrap tracking-tight transition-colors ${activeCategory === cat.label ? 'text-foreground' : 'text-muted-foreground/60'}`}>
+                  <span className="whitespace-nowrap tracking-tight">
                     {cat.label}
                   </span>
-                  {activeCategory === cat.label && (
-                    <motion.div 
+                  {activeCategory === cat.value && (
+                    <motion.div
                       layoutId="activeCategory"
-                      className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-foreground rounded-full"
+                      className="absolute -bottom-2 left-3 right-3 h-[3px] rounded-full bg-foreground"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -101,77 +132,84 @@ export default function Home() {
             </div>
 
             {showRightArrow && (
-              <div className="absolute right-0 z-10 h-full flex items-center bg-gradient-to-l from-white via-white/80 to-transparent pl-10">
-                <Button 
-                  variant="outline" 
-                  size="icon" 
-                  className="rounded-full size-8 shadow-sm border-black/[0.06] hover:scale-110 active:scale-95 transition-all bg-white"
-                  onClick={() => scroll('right')}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+              <div className="absolute right-0 top-0 z-10 h-full w-14 bg-gradient-to-l from-white via-white/90 to-transparent">
+                <div className="flex h-full items-center justify-end">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="mr-1 h-9 w-9 rounded-full border border-border/70 bg-white/80 shadow-sm"
+                    onClick={() => scroll("right")}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             )}
           </div>
-          
-          <Button variant="outline" className="hidden md:flex gap-2.5 rounded-xl h-10 px-4 border-black/[0.06] font-bold hover:bg-black/[0.02] transition-all shadow-sm active:scale-95">
-            <SlidersHorizontal className="h-3.5 w-3.5" />
-            <span className="text-[12px] font-black">Filtros</span>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="hidden h-10 w-10 rounded-full border border-border/70 bg-white/70 shadow-sm md:flex"
+            aria-label="Abrir filtros"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
           </Button>
         </div>
       </section>
 
-      {/* Listings Grid - Optimized for readability */}
-      <section className="container mx-auto px-4 sm:px-12 pt-10 pb-24">
+      {/* Listings Grid */}
+      <section className="container mx-auto px-4 pb-24 pt-10 sm:px-12">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight text-foreground">
+              Estadias selecionadas
+            </h2>
+          </div>
+        </div>
+
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={activeCategory}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-6 gap-y-12"
+            transition={{ duration: 0.35 }}
+            className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             {filteredListings.map((listing, index) => (
               <motion.div
                 key={listing.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.04 }}
               >
                 <ListingCard listing={listing} />
               </motion.div>
             ))}
           </motion.div>
         </AnimatePresence>
-        
+
         {filteredListings.length === 0 && (
-          <div className="text-center py-40 bg-muted/5 rounded-3xl border-2 border-dashed border-border/20 mt-4">
-            <div className="text-6xl mb-8 animate-bounce">🏝️</div>
-            <h3 className="text-2xl font-black mb-4">Infelizmente nada por aqui...</h3>
-            <p className="text-muted-foreground text-lg max-w-md mx-auto mb-10 font-medium">Tente explorar outras categorias ou remova os filtros para encontrar o lugar perfeito.</p>
-            <Button 
-              variant="default" 
-              className="rounded-xl px-10 h-14 font-black text-lg shadow-xl hover:scale-105 transition-transform" 
+          <div className="glass mt-8 rounded-[2rem] border border-dashed border-border/70 py-24 text-center">
+            <div className="text-6xl">🏝️</div>
+            <h3 className="mt-6 text-2xl font-semibold text-foreground">
+              Nenhum refúgio encontrado.
+            </h3>
+            <p className="mx-auto mt-3 max-w-md text-muted-foreground">
+              Tente outra categoria ou remova os filtros para redescobrir destinos
+              incríveis.
+            </p>
+            <Button
+              className="mt-8 h-12 rounded-full px-8 text-sm font-semibold"
               onClick={() => setActiveCategory("Tudo")}
             >
-              Ver todos os anúncios
+              Ver todas as estadias
             </Button>
           </div>
         )}
       </section>
 
-      {/* Floating Map Button - Enhanced Design */}
-      <motion.div 
-        initial={{ y: 100 }}
-        animate={{ y: 0 }}
-        className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 md:bottom-12"
-      >
-        <Button className="rounded-full h-14 px-8 bg-foreground text-background hover:scale-105 active:scale-95 transition-all shadow-2xl font-black gap-3 group">
-          <span>Mostrar mapa</span>
-          <Map className="h-5 w-5 group-hover:rotate-12 transition-transform" />
-        </Button>
-      </motion.div>
     </Layout>
   );
 }
